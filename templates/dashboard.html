@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrer ændringer i tiden{% endblock %}
+
+{% block content %}
+<h1 class="centered">Registrer pauser til {{ current_user.username }}</h1>
+<br>
+<p><a href="{{ url_for('skema', user=current_user.username) }}">Se Skema-ændringer</a></p>
+<br>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} centered">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+{% if error %}
+    <div class='alert alert-danger'>{{error}}</div>
+{% endif %}
+{% if msg %}
+    <div class='alert alert-success'>{{msg}}</div>
+{% endif %}
+
+<!-- Form for input -->
+<div class="row">
+  <div class="col-md-6 centered btn-group-lg btn-group-vertical">
+     <form method="POST" action="{{ url_for('dashboard') }}" id="user-form">
+       <div class="form-group">
+         <label for="date">Date</label>
+         <input type="date" class="form-control" id="date" name="date" value="{{ today }}"><br>
+         <label for="start">Start Time</label>
+         <input type="time" class="form-control" id="start" name="start"><br>
+         <label for="end">End Time</label>
+         <input type="time" class="form-control" id="end" name="end"><br>
+       </div>
+       <button type="submit" class="btn btn-primary">Submit</button>
+     </form>
+  </div>
+</div>
+
+<!-- Table to display existing overtime data -->
+{% if ot_list %}
+ <div class="centered">
+   <h2> Tidsændringer </h2>
+      <table class="table-striped table-bordered text-center" align="center">
+            <tr>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Remove</th>
+            </tr>
+            {% for i in ot_list %}
+              <tr>
+                <td>{{ i[1] }}</td>
+                <td>{{ i[2] }}</td>
+                <td>{{ i[3] }}</td>
+                <td>
+                  <form action="{{ url_for('db_delete') }}" method='POST'>
+                  <input type='hidden' value="{{ i[0] }}" name='id'/>
+                  <input type='submit' class='btn btn-danger' value='Remove'/>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+      </table>
+ </div>
+{% endif %}
+{% endblock %}

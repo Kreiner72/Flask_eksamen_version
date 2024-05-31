@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Arbejds skema{% endblock %}
+
+{% block content %}
+<h1>Arbejds Skema:</h1>
+
+<h2>Idag:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Pause start</th>
+            <th>Pause slut</th>
+            <th>PH</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in daily_hours %}
+        <tr>
+            <td>{{ entry[1] }}</td>
+            <td>{{ entry[2] }}</td>
+            <td>{{ entry[3] }}</td>
+            <td>{{ entry[4] }}</td>
+            <td>{{ entry[5] }}</td>
+            <td>{{ entry[6] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if weekly_hours %}
+<h2>Denne uge:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Pause start</th>
+            <th>Pause slut</th>
+            <th>PH</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in weekly_hours %}
+        <tr>
+            <td>{{ entry[1] }}</td>
+            <td>{{ entry[2] }}</td>
+            <td>{{ entry[3] }}</td>
+            <td>{{ entry[4] }}</td>
+            <td>{{ entry[5] }}</td>
+            <td>{{ entry[6] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if monthly_hours %}
+<h2>Denne måned:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Pause start</th>
+            <th>Pause slut</th>
+            <th>PH</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in monthly_hours %}
+        <tr>
+            <td>{{ entry[1] }}</td>
+            <td>{{ entry[2] }}</td>
+            <td>{{ entry[3] }}</td>
+            <td>{{ entry[4] }}</td>
+            <td>{{ entry[5] }}</td>
+            <td>{{ entry[6] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

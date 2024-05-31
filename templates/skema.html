@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Skemaændringer
+{% endblock %}
+
+{% block content %}
+    <h1>Skema ændringer for {{ current_user.username }}</h1>
+    <br/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Pause start</th>
+                <th>Pause slut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in tidsændringer_list %}
+            <tr>
+                <td>{{ entry[1] }}</td>
+                <td>{{ entry[2] }}</td>
+                <td>{{ entry[3] }}</td>
+                <td>
+                    <form action="{{ url_for('db_delete', entry_id=entry[0]) }}" method="post">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
